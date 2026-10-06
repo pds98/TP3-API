@@ -22,4 +22,18 @@ app.use(errorHandler);
 const port = Number(process.env.PORT ?? 3000);
 app.listen(port, () => {
     console.log(`Serveur demarre sur http://localhost:${port}`);
+
+    app.get("/", (_req, res) => {
+        res.status(200).json({
+            nom: "API Produits - TP3",
+            routes: {
+                sante: "GET /api/health",
+                liste: "GET /api/produits",
+                detail: "GET /api/produits/:id",
+                creer: "POST /api/produits",
+                remplacer: "PUT /api/produits/:id",
+                supprimer: "DELETE /api/produits/:id",
+            },
+        });
+    });
 });
