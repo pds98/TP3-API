@@ -1,0 +1,15 @@
+services:
+
+    api:
+      build: .
+      ports:
+        - "127.0.0.1:3000:3000"
+      environment:
+        PORT: 3000
+        DATABASE_URL: postgres://${POSTGRES_USER:?Configurer .env}:${POSTGRES_PASSWORD:?Configurer .env}@db:5432/${POSTGRES_DB:?Configurer .env}
+        REDIS_URL: redis://redis:6379
+      depends_on:
+        db:
+          condition: service_healthy
+        redis:
+          condition: service_healthy

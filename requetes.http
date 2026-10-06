@@ -1,0 +1,95 @@
+@base = http://localhost:3000/api/produits
+
+### 1. GET liste → 200
+GET {{base}}
+
+### 2. GET un produit → 200
+GET {{base}}/1
+
+### 3. GET id inconnu → 404
+GET {{base}}/999
+
+### 4. GET id invalide → 400
+GET {{base}}/abc
+
+### 5. POST valide → 201 (doit créer l'id 4)
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nom": "Écran",
+  "prix": 399.99,
+  "stock": 10,
+  "categorie": "Informatique"
+}
+
+### 6. POST sans nom → 400
+POST {{base}}
+Content-Type: application/json
+
+{
+  "prix": 25,
+  "stock": 5,
+  "categorie": "Accessoires"
+}
+
+### 7. POST prix négatif → 400
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nom": "Tapis",
+  "prix": -10,
+  "stock": 5,
+  "categorie": "Accessoires"
+}
+
+### 8. POST stock décimal → 400
+POST {{base}}
+Content-Type: application/json
+
+{
+  "nom": "Câble",
+  "prix": 9.99,
+  "stock": 2.5,
+  "categorie": "Accessoires"
+}
+
+### 9. PUT valide → 200
+PUT {{base}}/1
+Content-Type: application/json
+
+{
+  "nom": "Laptop Pro",
+  "prix": 1500,
+  "stock": 3,
+  "categorie": "Informatique"
+}
+
+### 10. PUT id inconnu → 404
+PUT {{base}}/999
+Content-Type: application/json
+
+{
+  "nom": "Fantôme",
+  "prix": 10,
+  "stock": 1,
+  "categorie": "Test"
+}
+
+### 11. PUT corps invalide → 400
+PUT {{base}}/1
+Content-Type: application/json
+
+{
+  "nom": "   ",
+  "prix": 0,
+  "stock": -1,
+  "categorie": ""
+}
+
+### 12. DELETE le produit créé au test 5 → 204
+DELETE {{base}}/4
+
+### 13. DELETE une deuxième fois → 404
+DELETE {{base}}/4

@@ -1,0 +1,15 @@
+# Dépendances (se réinstallent avec npm install)
+node_modules
+
+# Code compilé (se régénère avec npm run build)
+dist
+
+# Secrets : ne jamais partager
+.env
+
+# Fichiers de l'IDE et du système
+.idea
+.DS_Store
+
+# Journaux
+*.log
